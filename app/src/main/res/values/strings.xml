@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Course_project_KM</string>
+
+    <string name="text_name">Играть</string>
+    <string name="info_o_games_text">Информация о последних играх</string>
+    <string name="o_games_text">Об игре</string>
+    <string name="sprayka_name">Справка</string>
+    <string name="exit_text">Выход</string>
+    <string name="setting">Настройки</string>
+    <string name="hello">Добро пожаловать: GGG</string>
+    <string name="RUB">РУБ</string>
+    <string name="error">Временно не работает!</string>
+    <string name="sprayka_text">Приложение: Кто хочет стать миллионером?\nВерсия: 0.0.2\nСоздатель: Коновальчик Михаил\nГруппа: ПСк-21(ПСк-31)</string>
+    <string name="ob_games">Вспомните все, что знаете, и сорвите джекпот, избегая коварных вопросов! Вас ждут 15 вопросов, которые будут становиться все сложнее и сложнее, а призовой фонд будет расти.\nЗдесь есть всё, чтобы заставить игрока понервничать!</string>
+</resources>
