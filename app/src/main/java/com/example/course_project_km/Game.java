@@ -1,9 +1,9 @@
 package com.example.course_project_km;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -22,33 +22,35 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class game extends AppCompatActivity {
+public class Game extends AppCompatActivity {
     Random random = new Random();
+    AlertDialog.Builder dialog;
     Button answer_A, answer_B, answer_C, answer_D;
     ImageView help_friends, help_five_na_five, help_hall, timer;
     TextView question, money_number, time_number;
     String str_data;
     List<String> list = new ArrayList<String>();
+    int[][] mas_files = new int[6][5];
     int id = 1;
+    int corretAns;
     int id_podraynds = 0;
-    int time = 21000;
     String money;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        help_friends = (ImageView) findViewById(R.id.help_friends);
-        help_five_na_five = (ImageView) findViewById(R.id.help_five_na_five);
-        help_hall = (ImageView) findViewById(R.id.help_hall);
-        timer = (ImageView) findViewById(R.id.timer);
-        question = (TextView) findViewById(R.id.question);
-        money_number = (TextView) findViewById(R.id.money_number);
-        time_number = (TextView) findViewById(R.id.time_number);
-        answer_A = (Button) findViewById(R.id.answer_A);
-        answer_B = (Button) findViewById(R.id.answer_B);
-        answer_C = (Button) findViewById(R.id.answer_C);
-        answer_D = (Button) findViewById(R.id.answer_D);
+        help_friends = findViewById(R.id.help_friends);
+        help_five_na_five = findViewById(R.id.help_five_na_five);
+        help_hall = findViewById(R.id.help_hall);
+        timer = findViewById(R.id.timer);
+        question = findViewById(R.id.question);
+        money_number = findViewById(R.id.money_number);
+        time_number = findViewById(R.id.time_number);
+        answer_A = findViewById(R.id.answer_A);
+        answer_B = findViewById(R.id.answer_B);
+        answer_C = findViewById(R.id.answer_C);
+        answer_D = findViewById(R.id.answer_D);
 
         Rounds();
     }
@@ -67,6 +69,10 @@ public class game extends AppCompatActivity {
     public void help_hall_onClick(View view) {
         help_hall.setImageResource(R.drawable.piople_red);
         help_hall.setClickable(false);
+    }
+
+    public void exit_onClick(View view) {
+        finish();
     }
 
     public void Rounds() {
@@ -126,169 +132,76 @@ public class game extends AppCompatActivity {
     }
 
     public void Correct_answer() {
-        Toast.makeText(game.this, "Правильно!", Toast.LENGTH_SHORT).show();
-        id++;
-        Rounds();
+        dialog = new AlertDialog.Builder(Game.this);
+        dialog.setTitle("Раунд 1");
+        dialog.setIcon(R.drawable.round_1);
+        dialog.setMessage("Правильно!\nБаланс: " + 500);
+        dialog.setPositiveButton("Ок", (v, dialog) -> {
+            v.cancel();
+            id++;
+            Rounds();
+        });
+        dialog.show();
     }
 
     public void Wrong_answer() {
-        Toast.makeText(game.this, "Неправильно", Toast.LENGTH_SHORT).show();
+        dialog = new AlertDialog.Builder(Game.this);
+        dialog.setTitle("Раунд 1");
+        dialog.setIcon(R.drawable.round_1);
+        dialog.setMessage("Неправильно!");
+        dialog.setPositiveButton("Ок", (v, dialog) -> finish());
+        dialog.show();
     }
 
     public void Question_file() {
-        switch (id_podraynds) {
-            case 1:
-                question.setText(list.get(1) + '\n' + list.get(2) + '\n' + list.get(3));
-                answer_A.setText(list.get(4));
-                answer_B.setText(list.get(5));
-                answer_C.setText(list.get(6));
-                answer_D.setText(list.get(7));
-                break;
-            case 2:
-                question.setText(list.get(9) + '\n' + list.get(10) + '\n' + list.get(11));
-                answer_A.setText(list.get(12));
-                answer_B.setText(list.get(13));
-                answer_C.setText(list.get(14));
-                answer_D.setText(list.get(15));
-                break;
-            case 3:
-                question.setText(list.get(17) + '\n' + list.get(18) + '\n' + list.get(19));
-                answer_A.setText(list.get(20));
-                answer_B.setText(list.get(21));
-                answer_C.setText(list.get(22));
-                answer_D.setText(list.get(23));
-                break;
-            case 4:
-                question.setText(list.get(25) + '\n' + list.get(26) + '\n' + list.get(27));
-                answer_A.setText(list.get(28));
-                answer_B.setText(list.get(29));
-                answer_C.setText(list.get(30));
-                answer_D.setText(list.get(31));
-                break;
-            case 5:
-                question.setText(list.get(33) + '\n' + list.get(34) + '\n' + list.get(35));
-                answer_A.setText(list.get(36));
-                answer_B.setText(list.get(37));
-                answer_C.setText(list.get(38));
-                answer_D.setText(list.get(39));
-                break;
+        mas_files[1][0] = 1;
+        mas_files[1][1] = 3;
+        mas_files[1][2] = 4;
+        mas_files[1][3] = 5;
+        mas_files[1][4] = 6;
+        for (int i = 2; i <= 5; i++) {
+            mas_files[i][0] = mas_files[i - 1][0] + 7;
+            mas_files[i][1] = mas_files[i - 1][1] + 7;
+            mas_files[i][2] = mas_files[i - 1][2] + 7;
+            mas_files[i][3] = mas_files[i - 1][3] + 7;
+            mas_files[i][4] = mas_files[i - 1][4] + 7;
+        }
+        question.setText(list.get(mas_files[id_podraynds][0]));
+        answer_A.setText(list.get(mas_files[id_podraynds][1]));
+        answer_B.setText(list.get(mas_files[id_podraynds][2]));
+        answer_C.setText(list.get(mas_files[id_podraynds][3]));
+        answer_D.setText(list.get(mas_files[id_podraynds][4]));
+        Answers answers;
+        List<Answers> list_ans = new ArrayList();
+        list_ans.add(new Answers(0, 2, 1, 1, 3));
+        list_ans.add(new Answers(0, 2, 1, 1, 3));
+        list_ans.add(new Answers(2, 0, 0, 0, 2));
+        answers = list_ans.get(id);
+        corretAns = answers.mas_ans[id_podraynds];
+    }
+
+    public void Check_Answer(int idx) {
+        if (idx == corretAns) {
+            Correct_answer();
+        } else {
+            Wrong_answer();
         }
     }
 
     public void on_answer_A_clicked(View view) {
-        switch (id) {
-            case 1:
-                switch (id_podraynds) {
-                    case 1:
-                        answer_A.setBackgroundColor(getColor(R.color.correct_answer));
-                        Correct_answer();
-                        break;
-                    case 2:
-                        answer_A.setBackgroundColor(getColor(R.color.wrong_answer));
-                        Wrong_answer();
-                        break;
-                    case 3:
-                        answer_A.setBackgroundColor(getColor(R.color.wrong_answer));
-                        Wrong_answer();
-                        break;
-                    case 4:
-                        answer_A.setBackgroundColor(getColor(R.color.wrong_answer));
-                        Wrong_answer();
-                        break;
-                    case 5:
-                        answer_A.setBackgroundColor(getColor(R.color.wrong_answer));
-                        Wrong_answer();
-                        break;
-                }
-                break;
-        }
+        Check_Answer(0);
     }
 
     public void on_answer_B_clicked(View view) {
-        switch (id) {
-            case 1:
-                switch (id_podraynds) {
-                    case 1:
-                        answer_B.setBackgroundColor(getColor(R.color.wrong_answer));
-                        Wrong_answer();
-                        break;
-                    case 2:
-                        answer_B.setBackgroundColor(getColor(R.color.wrong_answer));
-                        Wrong_answer();
-                        break;
-                    case 3:
-                        answer_B.setBackgroundColor(getColor(R.color.correct_answer));
-                        Correct_answer();
-                        break;
-                    case 4:
-                        answer_B.setBackgroundColor(getColor(R.color.correct_answer));
-                        Correct_answer();
-                        break;
-                    case 5:
-                        answer_B.setBackgroundColor(getColor(R.color.wrong_answer));
-                        Wrong_answer();
-                        break;
-                }
-                break;
-        }
+        Check_Answer(1);
     }
 
     public void on_answer_C_clicked(View view) {
-        switch (id) {
-            case 1:
-                switch (id_podraynds) {
-                    case 1:
-                        answer_C.setBackgroundColor(getColor(R.color.wrong_answer));
-                        Wrong_answer();
-                        break;
-                    case 2:
-                        answer_C.setBackgroundColor(getColor(R.color.correct_answer));
-                        Correct_answer();
-                        break;
-                    case 3:
-                        answer_C.setBackgroundColor(getColor(R.color.wrong_answer));
-                        Wrong_answer();
-                        break;
-                    case 4:
-                        answer_C.setBackgroundColor(getColor(R.color.wrong_answer));
-                        Wrong_answer();
-                        break;
-                    case 5:
-                        answer_C.setBackgroundColor(getColor(R.color.wrong_answer));
-                        Wrong_answer();
-                        break;
-                }
-                break;
-        }
+        Check_Answer(2);
     }
 
     public void on_answer_D_clicked(View view) {
-        switch (id) {
-            case 1:
-                switch (id_podraynds) {
-                    case 1:
-                        answer_D.setBackgroundColor(getColor(R.color.wrong_answer));
-                        Wrong_answer();
-                        break;
-                    case 2:
-                        answer_D.setBackgroundColor(getColor(R.color.wrong_answer));
-                        Wrong_answer();
-                        break;
-                    case 3:
-                        answer_D.setBackgroundColor(getColor(R.color.wrong_answer));
-                        Wrong_answer();
-                        break;
-                    case 4:
-                        answer_D.setBackgroundColor(getColor(R.color.wrong_answer));
-                        Wrong_answer();
-                        break;
-                    case 5:
-                        answer_D.setBackgroundColor(getColor(R.color.correct_answer));
-                        Correct_answer();
-                        break;
-                }
-                break;
-        }
+        Check_Answer(3);
     }
 
     public void Working_with_files() {
@@ -345,21 +258,6 @@ public class game extends AppCompatActivity {
         }
     }
 
-    public void Timer() {
-        new CountDownTimer(time, 1000) {
-            @Override
-            public void onTick(long l) {
-                time_number.setText(String.valueOf(l / 1000));
-            }
-
-            @Override
-            public void onFinish() {
-                time_number.setText("0");
-                Toast.makeText(game.this, "Время вышло!", Toast.LENGTH_SHORT).show();
-            }
-        }.start();
-    }
-
     public void Personalizing_buttons() {
         answer_A.setBackgroundColor(getColor(R.color.game_button));
         answer_B.setBackgroundColor(getColor(R.color.game_button));
@@ -368,136 +266,106 @@ public class game extends AppCompatActivity {
     }
 
     public void Round_1_Question_and_Answer() {
-        time = 21000;
         money = "500РУБ";
         money_number.setText(money);
-        Timer();
         Question_file();
         Personalizing_buttons();
     }
 
     public void Round_2_Question_and_Answer() {
-        time = 21000;
         money = "1.000РУБ";
         money_number.setText(money);
-        Timer();
         Question_file();
         Personalizing_buttons();
     }
 
     public void Round_3_Question_and_Answer() {
-        time = 21000;
         money = "2.000РУБ";
         money_number.setText(money);
-        Timer();
         Question_file();
         Personalizing_buttons();
     }
 
     public void Round_4_Question_and_Answer() {
-        time = 21000;
         money = "3.000РУБ";
         money_number.setText(money);
-        Timer();
         Question_file();
         Personalizing_buttons();
     }
 
     public void Round_5_Question_and_Answer() {
-        time = 21000;
         money = "5.000РУБ";
         money_number.setText(money);
-        Timer();
         Question_file();
         Personalizing_buttons();
     }
 
     public void Round_6_Question_and_Answer() {
-        time = 31000;
         money = "10.000РУБ";
         money_number.setText(money);
-        Timer();
         Question_file();
         Personalizing_buttons();
     }
 
     public void Round_7_Question_and_Answer() {
-        time = 31000;
         money = "15.000РУБ";
         money_number.setText(money);
-        Timer();
         Question_file();
         Personalizing_buttons();
     }
 
     public void Round_8_Question_and_Answer() {
-        time = 31000;
         money = "25.000РУБ";
         money_number.setText(money);
-        Timer();
         Question_file();
         Personalizing_buttons();
     }
 
     public void Round_9_Question_and_Answer() {
-        time = 31000;
         money = "50.000РУБ";
         money_number.setText(money);
-        Timer();
         Question_file();
         Personalizing_buttons();
     }
 
     public void Round_10_Question_and_Answer() {
-        time = 31000;
         money = "100.000РУБ";
         money_number.setText(money);
-        Timer();
         Question_file();
         Personalizing_buttons();
     }
 
     public void Round_11_Question_and_Answer() {
-        time = 41000;
         money = "200.000РУБ";
         money_number.setText(money);
-        Timer();
         Question_file();
         Personalizing_buttons();
     }
 
     public void Round_12_Question_and_Answer() {
-        time = 41000;
         money = "400.000РУБ";
         money_number.setText(money);
-        Timer();
         Question_file();
         Personalizing_buttons();
     }
 
     public void Round_13_Question_and_Answer() {
-        time = 41000;
         money = "800.000РУБ";
         money_number.setText(money);
-        Timer();
         Question_file();
         Personalizing_buttons();
     }
 
     public void Round_14_Question_and_Answer() {
-        time = 41000;
         money = "1.500.000РУБ";
         money_number.setText(money);
-        Timer();
         Question_file();
         Personalizing_buttons();
     }
 
     public void Round_15_Question_and_Answer() {
-        time = 41000;
         money = "3.000.000РУБ";
         money_number.setText(money);
-        Timer();
         Question_file();
         Personalizing_buttons();
     }

@@ -10,11 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Course_project_KM">
         <activity
-            android:name=".help_friends_and_hall"
+            android:name=".Help_friends_and_hall"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".game"
+            android:name=".Game"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity

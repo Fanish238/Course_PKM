@@ -3,10 +3,8 @@ package com.example.course_project_km;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -19,16 +17,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        button_game = (Button) findViewById(R.id.button_game);
-        button_info_old_games = (Button) findViewById(R.id.info_old_games);
-        button_setting = (Button) findViewById(R.id.setting);
-        button_info_games = (Button) findViewById(R.id.info_games);
-        button_sprayka = (Button) findViewById(R.id.sprayka);
-        button_exit = (Button) findViewById(R.id.exit);
+        button_game = findViewById(R.id.button_game);
+        button_info_old_games = findViewById(R.id.info_old_games);
+        button_setting = findViewById(R.id.setting);
+        button_info_games = findViewById(R.id.info_games);
+        button_sprayka = findViewById(R.id.sprayka);
+        button_exit = findViewById(R.id.exit);
     }
 
     public void button_game_onClick(View view) {
-        Intent intent = new Intent(MainActivity.this, game.class);
+        Intent intent = new Intent(MainActivity.this, Game.class);
         startActivity(intent);
     }
 
@@ -41,20 +39,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void button_info_games_onClick(View view){
-        ob_games();
+        dialog = new AlertDialog.Builder(MainActivity.this);
+        dialog.setIcon(R.drawable.lagatip);
+        dialog.setTitle("Об игре");
+        dialog.setMessage(R.string.ob_games);
+        dialog.show();
     }
 
     public void button_sprayka_onClick(View view) {
-        Log.d("Сообщение", "Кнопка нажата");
-        sprayka_messeng();
-    }
-
-    public void button_exit_onClick(View view) {
-
-        System.exit(0);
-    }
-
-    public void sprayka_messeng(){
         dialog = new AlertDialog.Builder(MainActivity.this);
         dialog.setIcon(R.drawable.lagatip);
         dialog.setTitle("Справка");
@@ -62,11 +54,8 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    public void ob_games(){
-        dialog = new AlertDialog.Builder(MainActivity.this);
-        dialog.setIcon(R.drawable.lagatip);
-        dialog.setTitle("Об игре");
-        dialog.setMessage(R.string.ob_games);
-        dialog.show();
+    public void button_exit_onClick(View view) {
+
+        System.exit(0);
     }
 }

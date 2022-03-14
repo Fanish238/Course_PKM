@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fon"
-    tools:context=".game">
+    tools:context=".Game">
 
     <ImageView
         android:id="@+id/help_five_na_five"
@@ -64,7 +64,7 @@
 
     <TextView
         android:id="@+id/question"
-        android:layout_width="439dp"
+        android:layout_width="0dp"
         android:layout_height="230dp"
         android:background="@color/black"
         android:gravity="center"
@@ -126,6 +126,7 @@
         android:layout_width="68dp"
         android:layout_height="42dp"
         android:backgroundTint="@color/game_button"
+        android:onClick="exit_onClick"
         android:text="@string/exit_text"
         android:textColor="@color/black"
         android:textSize="8sp"
