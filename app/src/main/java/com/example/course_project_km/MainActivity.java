@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void button_exit_onClick(View view) {
-
         System.exit(0);
     }
 }

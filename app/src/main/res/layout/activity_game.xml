@@ -81,7 +81,7 @@
     <Button
         android:id="@+id/answer_B"
         android:layout_width="331dp"
-        android:layout_height="48dp"
+        android:layout_height="52dp"
         android:backgroundTint="@color/game_button"
         android:onClick="on_answer_B_clicked"
         android:textColor="@color/black"
@@ -95,7 +95,7 @@
     <Button
         android:id="@+id/answer_C"
         android:layout_width="331dp"
-        android:layout_height="48dp"
+        android:layout_height="52dp"
         android:backgroundTint="@color/game_button"
         android:onClick="on_answer_C_clicked"
         android:textColor="@color/black"
@@ -109,7 +109,7 @@
     <Button
         android:id="@+id/answer_D"
         android:layout_width="331dp"
-        android:layout_height="48dp"
+        android:layout_height="52dp"
         android:backgroundTint="@color/game_button"
         android:gravity="center"
         android:onClick="on_answer_D_clicked"
@@ -141,7 +141,7 @@
     <Button
         android:id="@+id/answer_A"
         android:layout_width="331dp"
-        android:layout_height="48dp"
+        android:layout_height="52dp"
         android:backgroundTint="@color/game_button"
         android:onClick="on_answer_A_clicked"
         android:textColor="@color/black"
