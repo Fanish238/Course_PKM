@@ -11,4 +11,5 @@
     <color name="game_button">#cfcfcf</color>
     <color name="correct_answer">#46D100</color>
     <color name="wrong_answer">#E30000</color>
+    <color name="help_friends">#595959</color>
 </resources>

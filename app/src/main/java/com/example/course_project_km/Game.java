@@ -3,6 +3,7 @@ package com.example.course_project_km;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,8 +17,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 public class Game extends AppCompatActivity {
@@ -30,10 +35,11 @@ public class Game extends AppCompatActivity {
     List<String> list = new ArrayList<>();
     List<Button> list_button = new ArrayList<>();
     int[][] mas_files = new int[6][6];
-    String[] mas_money = {"0", "500", "1.000", "2.000", "3.000", "5.000", "10.000", "15.000", "25.000", "50.000", "100.000", "200.000", "400.000", "800.000", "1.500.000", "3.000.000"};
+    final static String[] mas_money = {"0", "500", "1.000", "2.000", "3.000", "5.000", "10.000", "15.000", "25.000", "50.000", "100.000", "200.000", "400.000", "800.000", "1.500.000", "3.000.000"};
     int id = 1;
     int corretAns, wrongAns;
     int id_podraynds = 0;
+    String last_game_info = "";
     String money;
 
     @Override
@@ -60,11 +66,17 @@ public class Game extends AppCompatActivity {
     }
 
     public void help_friends_onClick(View view) {
+        last_game_info += "\nПодсказка: ''Помощь друга''";
         help_friends.setImageResource(R.drawable.telephone_red);
         help_friends.setClickable(false);
+        Intent intent = new Intent(Game.this, Help_friends_and_hall.class);
+        intent.putExtra("id", id);
+        intent.putExtra("id_podraynds", id_podraynds);
+        startActivity(intent);
     }
 
     public void help_five_na_five_onClick(View view) {
+        last_game_info += "\nПодсказка: ''50 на 50''";
         help_five_na_five.setImageResource(R.drawable.five_na_five_red);
         help_five_na_five.setClickable(false);
         int rand_five_na_five, last_rand = 5, g = 2;
@@ -84,11 +96,30 @@ public class Game extends AppCompatActivity {
     }
 
     public void help_hall_onClick(View view) {
+        last_game_info += "\nПодсказка: ''Помощь зала''";
         help_hall.setImageResource(R.drawable.piople_red);
         help_hall.setClickable(false);
     }
 
+    public void Last_game() {
+        if (last_game_info == "") {
+            last_game_info = "\nНи Одна из подсказок не была использована!";
+        }
+        Date date = new Date();
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
+        String SaveProgress = "Имя игрока: GGG\nДата проведения игры: " + dateFormat.format(date) + "\nВремя проведения игры: " + timeFormat.format(date) + "\nДошёл до: Раунда " + id + "\nМаксимальный выигрышь: " + money + "\nИспользованыые подсказки: " + last_game_info + "\n";
+        try {
+            FileOutputStream save = openFileOutput("save.txt", MODE_PRIVATE);
+            save.write(SaveProgress.getBytes());
+            save.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void exit_onClick(View view) {
+        Last_game();
         finish();
     }
 
@@ -109,6 +140,7 @@ public class Game extends AppCompatActivity {
         dialog.setTitle("Раунд " + id);
         dialog.setIcon(R.drawable.ic_baseline_check_24);
         dialog.setMessage("Правильно!\nБаланс: " + money);
+        dialog.setCancelable(false);
         dialog.setPositiveButton("Ок", (v, dialog) -> {
             v.cancel();
             id++;
@@ -118,11 +150,13 @@ public class Game extends AppCompatActivity {
     }
 
     public void Wrong_answer() {
+        Last_game();
         list_button.get(wrongAns).setBackgroundColor(getColor(R.color.wrong_answer));
         dialog = new AlertDialog.Builder(Game.this);
         dialog.setTitle("Раунд " + id);
         dialog.setIcon(R.drawable.ic_baseline_close_24);
         dialog.setMessage("Неправильно!");
+        dialog.setCancelable(false);
         dialog.setPositiveButton("Ок", (v, dialog) -> finish());
         dialog.show();
     }

@@ -3,7 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Programs/Android/Android Project/Course_project_KM/app/src/main/res/drawable/ic_baseline_check_24.xml" value="0.2555" />
+        <entry key="..\:/Programs/Android/Android Project/Course_project_KM/app/src/main/res/drawable/ic_baseline_close_24.xml" value="0.2555" />
+        <entry key="..\:/Programs/Android/Android Project/Course_project_KM/app/src/main/res/drawable/ic_baseline_info_24.xml" value="0.2555" />
         <entry key="..\:/Programs/Android/Android Project/Course_project_KM/app/src/main/res/layout/activity_game.xml" value="0.20878623188405798" />
+        <entry key="..\:/Programs/Android/Android Project/Course_project_KM/app/src/main/res/layout/activity_help_friends_and_hall.xml" value="0.25" />
         <entry key="..\:/Programs/Android/Android Project/Course_project_KM/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Programs/Android/Android Project/Course_project_KM/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2555" />
         <entry key="..\:/Programs/Course_project_KM/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2703125" />
@@ -15,7 +19,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="jbr-21" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
