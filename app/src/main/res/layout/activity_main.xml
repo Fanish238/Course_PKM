@@ -74,7 +74,7 @@
         android:layout_height="48dp"
         android:layout_marginEnd="30dp"
         android:backgroundTint="@color/game_button"
-        android:onClick="button_sprayka_onClick"
+        android:onClick="button_reference_onClick"
         android:text="@string/sprayka_name"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
